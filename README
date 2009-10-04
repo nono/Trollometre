@@ -1,0 +1,11 @@
+= Trollomètre =
+
+== Install ==
+
+Install tornado from http://github.com/facebook/tornado
+See doc/nginx.conf for an example of a config file for nginx
+
+== Credits ==
+
+Favicon from www.yellowicon.com
+
