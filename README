@@ -2,6 +2,7 @@
 
 == Install ==
 
+# aptitude install python-lxml python-dev python-pycurl python-simplejson
 Install tornado from http://github.com/facebook/tornado
 See doc/nginx.conf for an example of a config file for nginx
 
