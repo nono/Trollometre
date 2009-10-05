@@ -3,11 +3,10 @@
 	<head>
 		<title>Trollomètre</title>
 		<link rel="stylesheet" href="{{ static_url("style.css") }}" />
-		<link rel="icon" type="image/x-icon" href="/static/favicon.png" />
+		<link rel="icon" type="image/x-icon" href="{{ static_url("favicon.png") }}" />
 		<meta name="author" content="Bruno Michel" />
 		<meta name="description" content="Partez à la chasse aux trolls avec un trollomètre de compétition" />
 		<meta name="keywords" content="troll, trolls, trollomètre, chasse, godwin, compétition" />
-		<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 	</head>
 	<body>
 		<div id="main">
@@ -15,8 +14,8 @@
 			<h2>Partez à la chasse aux trolls</h2>
 			<form action="/measure" method="get">
 				<label for="url">Veuillez entrer l'URL de la page web que vous souhaitez mesurer avec le trollomètre :</label>
-				<input type="url" id="url" name="url" value="http://" required="required" />
-				<input type="submit" name="go" value="go />
+				<input type="url" id="url" name="url" placeholder="http://" required="required" />
+				<button type="submit">Go</button>
 			</form>
 		</div>
 	</body>

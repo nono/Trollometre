@@ -36,10 +36,19 @@ class MeasureHandler(tornado.web.RequestHandler):
 
     def on_response(self, url, response):
         if response.error: raise tornado.web.HTTPError(500)
-        doc = lxml.html.fromstring(response.body)
+        doc = lxml.html.fromstring(response.body.decode('utf8'))
+        words = set([w.strip() for w in open("liste.txt")])
+        count = str(len([x for x in doc.text_content().split(' ') if x in words]))
         doc.make_links_absolute(url)
         base = lxml.html.Element('base', dict(href=url))
         doc.head.append(base)
+        title = doc.head.find('title')
+        if title is not None:
+            title.text = '(' + count + ') ' + title.text
+        else:
+            title = lxml.html.Element('title')
+            title.text = '(' + count + ')'
+            doc.head.append(title)
         body = lxml.html.tostring(doc)
         self.write(body)
         self.finish()
