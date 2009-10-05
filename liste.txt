@@ -77,7 +77,7 @@ religion
 pingouin
 manchot
 darwin
-évalué
+cerveau
 moinsser
 bouc
 boucs
@@ -97,4 +97,4 @@ débat
 niveau
 tf1
 explorer
-cerveau
+vendredi

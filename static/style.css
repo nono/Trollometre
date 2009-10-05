@@ -1,0 +1,30 @@
+@font-face {
+    font-family: Megalopolis;
+    src: url('/static/MEgalopolisExtra.otf') format('opentype');
+}
+#main {
+    width: 560px;
+    height: 240px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin: -120px 0 0 -280px;
+    padding: 10px;
+    color: #111;
+    background-color: #A3945D;
+    border: 7px solid #584E37;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    font-family: verdana, sans-serif;
+}
+h1, h2 {
+    padding-bottom: 15px;
+    text-align: right;
+    color: #2E291A;
+    text-shadow: 2px 2px 5px #584E37;
+    font-family: Megalopolis;
+}
+#url { width: 320px; }
+img { float:left; padding-top: 20px; }
+p { font-size: 10px; color: #333; }

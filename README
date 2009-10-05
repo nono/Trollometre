@@ -1,12 +1,36 @@
 = Trollomètre =
 
+Partez à la chasse aux trolls avec un trollomètre de compétition !
+Ce trollomètre vous indique si une page web est trollifère ou non :
+plus le score est élevé, plus il est probable qu'un troll s'y trouve.
+
+
 == Install ==
 
+Pour installer le trollomètre chez vous, vous aurez besoin des paquets debian
+suivants :
 # aptitude install python-lxml python-dev python-pycurl python-simplejson
-Install tornado from http://github.com/facebook/tornado
-See doc/nginx.conf for an example of a config file for nginx
+
+Ensuite, il vous faudra installer tornado :
+$ git clone http://github.com/facebook/tornado
+$ cd tornado
+$ python setup.py build
+# python setup.py install
+
+Vous pourrez alors lancer le trollomètre :
+$ ./trollometre 8000
+Il sera alors accessible sur http://localhost:8000/
+
+Si vous souhaitez rendre son accès public, vous pouvez le proxifier derrière
+nginx - http://wiki.nginx.org/. Le fichier doc/nginx.conf est un exemple de
+configuration pour proxifier les requêtes de nginx vers trollometer.
+
 
 == Credits ==
 
-Favicon from www.yellowicon.com
+Copyright (c) 2009 Bruno Michel <brmichel@free.fr>
+Licence GNU AGPL V3+
+
+Favicon and logo from www.yellowicon.com
+ChunckFive font from http://www.fontsquirrel.com/fonts/ChunkFive
 

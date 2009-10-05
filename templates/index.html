@@ -6,10 +6,11 @@
 		<link rel="icon" type="image/x-icon" href="{{ static_url("favicon.png") }}" />
 		<meta name="author" content="Bruno Michel" />
 		<meta name="description" content="Partez à la chasse aux trolls avec un trollomètre de compétition" />
-		<meta name="keywords" content="troll, trolls, trollomètre, chasse, godwin, compétition" />
+		<meta name="keywords" content="troll, trolls, trollomètre, chasse, godwin, compétition, vendredi" />
 	</head>
 	<body>
 		<div id="main">
+			<img src="{{ static_url("logo.png") }}" alt="logo" />
 			<h1>Trollomètre</h1>
 			<h2>Partez à la chasse aux trolls</h2>
 			<form action="/measure" method="get">
@@ -17,6 +18,7 @@
 				<input type="url" id="url" name="url" placeholder="http://" required="required" />
 				<button type="submit">Go</button>
 			</form>
+			<p>Le score s'affiche dans le titre de la page (dans la barre d'onglets et/ou dans le titre de la fenêtre).</p>
 		</div>
 	</body>
 </html>
