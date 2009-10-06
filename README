@@ -1,5 +1,7 @@
 = Trollomètre =
 
+http://github.com/nono/Trollometre
+
 Partez à la chasse aux trolls avec un trollomètre de compétition !
 Ce trollomètre vous indique si une page web est trollifère ou non :
 plus le score est élevé, plus il est probable qu'un troll s'y trouve.
@@ -24,6 +26,10 @@ Il sera alors accessible sur http://localhost:8000/
 Si vous souhaitez rendre son accès public, vous pouvez le proxifier derrière
 nginx - http://wiki.nginx.org/. Le fichier doc/nginx.conf est un exemple de
 configuration pour proxifier les requêtes de nginx vers trollometer.
+
+A défaut d'nginx, vous pouvez également utiliser apache2 avec le
+mod_proxy_balancer. Un exemple de fichier de conf pour un vhost est également
+fourni : doc/apache2.conf.
 
 
 == Credits ==

@@ -4,11 +4,11 @@
 }
 #main {
     width: 560px;
-    height: 240px;
+    height: 260px;
     position: absolute;
     top: 40%;
     left: 50%;
-    margin: -120px 0 0 -280px;
+    margin: -130px 0 0 -280px;
     padding: 10px;
     color: #111;
     background-color: #A3945D;
@@ -26,5 +26,6 @@ h1, h2 {
     font-family: Megalopolis;
 }
 #url { width: 320px; }
-img { float:left; padding-top: 20px; }
+img.logo { float:left; padding-top: 20px; }
 p { font-size: 10px; color: #333; }
+a img { border: 0; float: right; margin: 2px 5px; }

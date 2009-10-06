@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div id="main">
-			<img src="{{ static_url("logo.png") }}" alt="logo" />
+			<img src="{{ static_url("logo.png") }}" alt="logo" class="logo" />
 			<h1>Trollomètre</h1>
 			<h2>Partez à la chasse aux trolls</h2>
 			<form action="/measure" method="get">
@@ -19,6 +19,9 @@
 				<button type="submit">Go</button>
 			</form>
 			<p>Le score s'affiche dans le titre de la page (dans la barre d'onglets et/ou dans le titre de la fenêtre).</p>
+			<a href="http://bearstech.com"><img src="{{ static_url("bearstech.png") }}" alt="Bearstech" title="Bearstech héberge gracieusement trollometre.com" /></a>
+			<a href="http://github.com/nono/Trollometre"><img src="{{ static_url("forkit.png") }}" alt="Fork it" title="Le code est disponible sur github.com" /></a>
+			<a href="http://www.gnu.org/licenses/agpl.html"><img src="{{ static_url("agpl.png") }}" alt="GNU AGPL v3" title="Cette application est distribuée sous licence GNU Affero GPL v3" /></a>
 		</div>
 	</body>
 </html>
