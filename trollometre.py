@@ -2,6 +2,7 @@
 import lxml.html
 import os.path
 import sys
+import string
 import tornado.escape
 import tornado.httpclient
 import tornado.httpserver
@@ -16,6 +17,7 @@ class Application(tornado.web.Application):
             (r"/measure", MeasureHandler)
         ]
         settings = dict(
+			#debug=True,
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static")
         )
@@ -27,6 +29,38 @@ class MainHandler(tornado.web.RequestHandler):
         self.render("index.html")
 
 
+class Page(object):
+    words = frozenset([w.strip() for w in open("liste.txt")])
+
+    def __init__(self, body):
+        self.doc = lxml.html.fromstring(body.decode('utf8'))
+
+    def absolute_links(self, url):
+        self.doc.make_links_absolute(url)
+        base = lxml.html.Element('base', dict(href=url))
+        self.doc.head.append(base)
+
+    def compute_score(self):
+        txt = self.doc.text_content()
+        for punct in string.punctuation:
+            txt = txt.replace(punct," ")
+        count = len(filter(lambda x: x in self.words, txt.split()))
+        return count
+
+    def inject_score(self, score):
+        title = self.doc.head.find('title')
+        txt = '(' + str(score) + ')'
+        if title is not None:
+            title.text = txt + ' ' + title.text
+        else:
+            title = lxml.html.Element('title')
+            title.text = txt
+            self.doc.head.append(title)
+
+    def tostring(self):
+        return lxml.html.tostring(self.doc)
+
+
 class MeasureHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def get(self):
@@ -36,21 +70,11 @@ class MeasureHandler(tornado.web.RequestHandler):
 
     def on_response(self, url, response):
         if response.error: raise tornado.web.HTTPError(500)
-        doc = lxml.html.fromstring(response.body.decode('utf8'))
-        words = set([w.strip() for w in open("liste.txt")])
-        count = str(len([x for x in doc.text_content().split(' ') if x in words]))
-        doc.make_links_absolute(url)
-        base = lxml.html.Element('base', dict(href=url))
-        doc.head.append(base)
-        title = doc.head.find('title')
-        if title is not None:
-            title.text = '(' + count + ') ' + title.text
-        else:
-            title = lxml.html.Element('title')
-            title.text = '(' + count + ')'
-            doc.head.append(title)
-        body = lxml.html.tostring(doc)
-        self.write(body)
+        page = Page(response.body)
+        page.absolute_links(url)
+        score = page.compute_score()
+        page.inject_score(score)
+        self.write(page.tostring())
         self.finish()
 
 
@@ -61,3 +85,4 @@ if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(port, '127.0.0.1')
     tornado.ioloop.IOLoop.instance().start()
+
