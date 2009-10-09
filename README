@@ -19,6 +19,14 @@ $ cd tornado
 $ python setup.py build
 # python setup.py install
 
+Ainsi que python-daemon :
+# aptitude install setuptools
+$ wget 'http://pypi.python.org/packages/source/p/python-daemon/python-daemon-1.5.1.tar.gz#md5=46abde3f848aaaed0df3b1fe938234f0'
+$ tar xvzf python-daemon-1.5.1.tar.gz
+$ cd python-daemon-1.5.1/
+$ python setup.py build
+# python setup.py install
+
 Vous pourrez alors lancer le trollomètre :
 $ ./trollometre 8000
 Il sera alors accessible sur http://localhost:8000/
