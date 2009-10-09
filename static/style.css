@@ -25,6 +25,8 @@ h1, h2 {
     text-shadow: 2px 2px 5px #584E37;
     font-family: Megalopolis;
 }
+h1 { font-size: 36px; }
+h2 { font-size: 20px; }
 #url { width: 320px; }
 img.logo { float:left; padding-top: 20px; }
 p { font-size: 10px; color: #333; }
