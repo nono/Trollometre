@@ -19,13 +19,13 @@
     font-family: verdana, sans-serif;
 }
 h1, h2 {
-    padding-bottom: 15px;
+    padding-bottom: 12px;
     text-align: right;
     color: #2E291A;
     text-shadow: 2px 2px 5px #584E37;
     font-family: Megalopolis;
 }
-h1 { font-size: 36px; }
+h1 { font-size: 40px; }
 h2 { font-size: 20px; }
 #url { width: 320px; }
 img.logo { float:left; padding-top: 20px; }
