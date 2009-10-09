@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import daemon
 import lxml.html
 import os.path
 import sys
@@ -82,6 +83,13 @@ if __name__ == "__main__":
     port = 8000
     if len(sys.argv) > 1:
         port = int(sys.argv[1])
+        log = open('tornado.' + str(port) + '.log', 'a+')
+        ctx = daemon.DaemonContext(
+                stdout=log,
+                stderr=log,
+                working_directory='.'
+        )
+        ctx.open()
     http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(port, '127.0.0.1')
     tornado.ioloop.IOLoop.instance().start()
