@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import daemon
 import lxml.html
+import math
 import os.path
 import sys
 import string
@@ -45,14 +46,17 @@ class Page(object):
         txt = self.doc.text_content()
         for punct in string.punctuation:
             txt = txt.replace(punct," ")
-        count = len(filter(lambda x: x in self.words, txt.split()))
-        return count
+        txt = txt.split()
+        count = len(filter(lambda x: x in self.words, txt))
+        return count / math.log10(2 + len(txt))
 
     def inject_score(self, score):
         title = self.doc.head.find('title')
-        txt = '(' + str(score) + ')'
+        txt = '(%.1f) ' % score
+        if score > 10.0:
+            txt = '/!\\ ' + txt
         if title is not None:
-            title.text = txt + ' ' + title.text
+            title.text = txt + title.text
         else:
             title = lxml.html.Element('title')
             title.text = txt
