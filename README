@@ -6,6 +6,9 @@ Partez à la chasse aux trolls avec un trollomètre de compétition !
 Ce trollomètre vous indique si une page web est trollifère ou non :
 plus le score est élevé, plus il est probable qu'un troll s'y trouve.
 
+Le score s'affiche juste avant le titre de la page dans la barre d'onglets
+et/ou dans le titre de la fenêtre.
+
 
 == Install ==
 

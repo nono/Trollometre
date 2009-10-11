@@ -35,7 +35,7 @@ class Page(object):
     words = frozenset([w.strip() for w in open("liste.txt")])
 
     def __init__(self, body):
-        self.doc = lxml.html.fromstring(body.decode('utf8'))
+        self.doc = lxml.html.fromstring(body)
 
     def absolute_links(self, url):
         self.doc.make_links_absolute(url)
