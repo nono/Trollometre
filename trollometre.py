@@ -5,7 +5,6 @@ import math
 import os.path
 import sys
 import string
-import pickle
 import tornado.escape
 import tornado.httpclient
 import tornado.httpserver
@@ -20,7 +19,7 @@ class Application(tornado.web.Application):
             (r"/measure", MeasureHandler)
         ]
         settings = dict(
-			debug=True,
+			debug=False,
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static")
         )
@@ -52,9 +51,6 @@ class Page(object):
         return count / math.log10(2 + len(txt))
 
     def inject_score(self, score):
-        #txt = '<div style="position:fixed;top:0px;left:0px;background-color:green;width=100%%;height=4px"><span style="background-color:red;width=(%.1f)%%;" >trollscore&nbsp;"</span></div>' % score * 10 
-        #if score > 10.0:
-        #    txt = '/!\\ ' + txt
         trolldiv = lxml.html.Element('span')
         trolldivmetre = lxml.html.Element('span')
         trolldiv.attrib['style'] = 'line-height:8px:max-height:8px;font-family:arial;display:block;position:fixed;top:0px;left:0px;background-color:green;width:100% !important;height:8px'
