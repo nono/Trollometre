@@ -31,7 +31,6 @@ enfoncer
 européen
 explorer
 faciste
-feed
 flame
 flamewar
 flash
@@ -78,6 +77,7 @@ pingouin
 pue
 religion
 rms
+sarkozy
 staline
 stalinisme
 stallman
