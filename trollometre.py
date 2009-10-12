@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import daemon
 import lxml.html
 import math
@@ -19,7 +20,7 @@ class Application(tornado.web.Application):
             (r"/measure", MeasureHandler)
         ]
         settings = dict(
-			debug=False,
+            #debug=True,
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static")
         )
@@ -33,6 +34,11 @@ class MainHandler(tornado.web.RequestHandler):
 
 class Page(object):
     words = frozenset([w.strip() for w in open("liste.txt")])
+    divstyle = 'position: fixed; top: 0px; left: 0px; width: 100%; height: 10px; line-height: 8px; font-size: 8px; background-color: #08ac56;'
+    divmetrestyle  = 'width: %.1f%%; height: 10px; padding: 0 2px; background-color: #ff180b;'
+    divmetretext   = u'Trollomètre'
+    divreturnstyle = 'position: fixed; top: 0px; right: 0px; height: 10px; padding: 0 2px; color: white; background-color: #3c657b;'
+    divreturntext  = 'back'
 
     def __init__(self, body):
         self.doc = lxml.html.fromstring(body.decode('utf8'))
@@ -51,21 +57,30 @@ class Page(object):
         return count / math.log10(2 + len(txt))
 
     def inject_score(self, score):
-        trolldiv = lxml.html.Element('span')
-        trolldivmetre = lxml.html.Element('span')
-        trolldiv.attrib['style'] = 'line-height:8px:max-height:8px;font-family:arial;display:block;position:fixed;top:0px;left:0px;background-color:green;width:100% !important;height:8px'
-        trolldivmetre = lxml.html.Element('span')
-        trolldivmetre.attrib['style'] ='display:block;background-color:red;width:%.1f%%;font-size:8px;line-height:8px' % int(score * 10)
-        trolldivmetre.text='Trollometer'
-        trolldivreturn = lxml.html.Element('a')
-        trolldivreturn.attrib['onlClick']= "history.go(-1)"
-        trolldivreturn.attrib['href']= "#"
-        trolldivreturn.attrib['style'] ='display:inline;color:white;background-color:blue;float:right;font-size:8px;line-height:8px;width:20px;padding-left:-20px'
-        trolldivreturn.text='back...'
-        trolldiv.append(trolldivmetre)
-        trolldiv.append(trolldivreturn)
-
-        self.doc.body.append(trolldiv)
+        title = self.doc.head.find('title')
+        txt = '(%.1f) ' % score
+        if score > 10.0:
+            txt = '/!\\ ' + txt
+            score = 10
+        if title is not None:
+            title.text = txt + title.text
+        else:
+            title = lxml.html.Element('title')
+            title.text = txt
+            self.doc.head.append(title)
+        div = lxml.html.Element('div')
+        div.attrib['style'] = self.divstyle
+        divmetre = lxml.html.Element('div')
+        divmetre.attrib['style'] = self.divmetrestyle % int(score * 10)
+        divmetre.text = self.divmetretext
+        divreturn = lxml.html.Element('a')
+        divreturn.attrib['onClick'] = "history.go(-1)"
+        divreturn.attrib['href'] = "#"
+        divreturn.attrib['style'] = self.divreturnstyle
+        divreturn.text = self.divreturntext
+        div.append(divmetre)
+        div.append(divreturn)
+        self.doc.body.append(div)
 
     def tostring(self):
         return lxml.html.tostring(self.doc)
@@ -100,6 +115,6 @@ if __name__ == "__main__":
         )
         ctx.open()
     http_server = tornado.httpserver.HTTPServer(Application())
-    http_server.listen(8000)
+    http_server.listen(port, '127.0.0.1')
     tornado.ioloop.IOLoop.instance().start()
 
