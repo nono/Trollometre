@@ -1,28 +1,31 @@
-= Trollomètre =
+= Troll'o'meter =
 
 http://github.com/nono/Trollometre
 
-Partez à la chasse aux trolls avec un trollomètre de compétition !
-Ce trollomètre vous indique si une page web est trollifère ou non :
-plus le score est élevé, plus il est probable qu'un troll s'y trouve.
+Happy troll hunting with the competition grade Trollometer
+This Trollometer will indicated whether a web page is trolliferous or not !
+The higher the score, the better chances are a troll is hiding there.
 
-Le score s'affiche juste avant le titre de la page dans la barre d'onglets
-et/ou dans le titre de la fenêtre.
+The score should appear as a bar on the top of the page green is good. Red is bad.
 
 
 == Install ==
 
-Pour installer le trollomètre chez vous, vous aurez besoin des paquets debian
-suivants :
+To install the Trollometer you'll need the following debian packages
+
   # aptitude install python-lxml python-dev python-pycurl python-simplejson
 
-Ensuite, il vous faudra installer tornado :
+OS X:
+  # easy_install setuptools pycurl==7.16.2.1 simplejson
+  # pip install lxml
+
+Then you should install tornado
   $ git clone http://github.com/facebook/tornado
   $ cd tornado
   $ python setup.py build
   # python setup.py install
 
-Ainsi que python-daemon :
+and  python-daemon (for os x ignore the setup tools already done):
   # aptitude install setuptools
   $ wget 'http://pypi.python.org/packages/source/p/python-daemon/python-daemon-1.5.1.tar.gz#md5=46abde3f848aaaed0df3b1fe938234f0'
   $ tar xvzf python-daemon-1.5.1.tar.gz
@@ -30,17 +33,19 @@ Ainsi que python-daemon :
   $ python setup.py build
   # python setup.py install
 
-Vous pourrez alors lancer le trollomètre :
+
+
+You can now launch the Trollometer
   $ ./trollometre 8000
-Il sera alors accessible sur http://localhost:8000/
+Which should be accessible here: http://localhost:8000/
 
-Si vous souhaitez rendre son accès public, vous pouvez le proxifier derrière
-nginx - http://wiki.nginx.org/. Le fichier doc/nginx.conf est un exemple de
-configuration pour proxifier les requêtes de nginx vers trollometer.
+If you would like to run it publicly accessible you can proxify it behind:
+nginx - http://wiki.nginx.org/. The doc/nginx.conf file is an example of a
+Proxified configuration for the requests from nginx to the Trollometer.
 
-A défaut d'nginx, vous pouvez également utiliser apache2 avec le
-mod_proxy_balancer. Un exemple de fichier de conf pour un vhost est également
-fourni : doc/apache2.conf.
+If you don't have ngins running you can always you good olf apache2 with the
+mod_proxy_balancer. You can find an example vhost configuration file under:
+ doc/apache2.conf.
 
 
 == Credits ==
