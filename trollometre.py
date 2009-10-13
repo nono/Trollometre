@@ -14,13 +14,13 @@ import tornado.web
 
 
 class Application(tornado.web.Application):
-    def __init__(self):
+    def __init__(self, debug):
         handlers = [
             (r"/", MainHandler),
             (r"/measure", MeasureHandler)
         ]
         settings = dict(
-            #debug=True,
+            debug=debug,
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static")
         )
@@ -41,7 +41,10 @@ class Page(object):
     divreturntext  = 'back'
 
     def __init__(self, body):
-        self.doc = lxml.html.fromstring(body.decode('utf8'))
+        try:
+            self.doc = lxml.html.fromstring(body.decode('utf8'))
+        except UnicodeDecodeError:
+            self.doc = lxml.html.fromstring(body)
 
     def absolute_links(self, url):
         self.doc.make_links_absolute(url)
@@ -105,8 +108,10 @@ class MeasureHandler(tornado.web.RequestHandler):
 
 if __name__ == "__main__":
     port = 8000
+    debug = True
     if len(sys.argv) > 1:
         port = int(sys.argv[1])
+        debug = False
         log = open('tornado.' + str(port) + '.log', 'a+')
         ctx = daemon.DaemonContext(
                 stdout=log,
@@ -114,7 +119,7 @@ if __name__ == "__main__":
                 working_directory='.'
         )
         ctx.open()
-    http_server = tornado.httpserver.HTTPServer(Application())
+    http_server = tornado.httpserver.HTTPServer(Application(debug))
     http_server.listen(port, '127.0.0.1')
     tornado.ioloop.IOLoop.instance().start()
 
