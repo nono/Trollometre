@@ -17,7 +17,7 @@ suivants :
   # aptitude install python-lxml python-dev python-pycurl python-simplejson
 
 Ensuite, il vous faudra installer tornado :
-  $ git clone http://github.com/facebook/tornado
+  $ git clone git://github.com/facebook/tornado
   $ cd tornado
   $ python setup.py build
   # python setup.py install
@@ -42,6 +42,10 @@ A défaut d'nginx, vous pouvez également utiliser apache2 avec le
 mod_proxy_balancer. Un exemple de fichier de conf pour un vhost est également
 fourni : doc/apache2.conf.
 
+
+== Contributeurs ==
+
+Ori Pekelman
 
 == Credits ==
 
