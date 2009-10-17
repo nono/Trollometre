@@ -4,6 +4,7 @@ import daemon
 import lxml.html
 import math
 import os.path
+import re
 import sys
 import string
 import tornado.escape
@@ -43,7 +44,7 @@ class Page(object):
     def __init__(self, body):
         try:
             self.doc = lxml.html.fromstring(body.decode('utf8'))
-        except UnicodeDecodeError:
+        except ValueError:
             self.doc = lxml.html.fromstring(body)
 
     def absolute_links(self, url):
@@ -93,6 +94,8 @@ class MeasureHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def get(self):
         url = self.get_argument("url")
+        if (not re.search('://', url)):
+            url = "http://" + url
         http = tornado.httpclient.AsyncHTTPClient()
         http.fetch(url, callback=self.async_callback(self.on_response, url))
 
