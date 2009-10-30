@@ -96,8 +96,13 @@ class MeasureHandler(tornado.web.RequestHandler):
         url = self.get_argument("url")
         if (not re.search('://', url)):
             url = "http://" + url
-        http = tornado.httpclient.AsyncHTTPClient()
-        http.fetch(url, callback=self.async_callback(self.on_response, url))
+        if (re.search('#', url)):
+            url, fragment = url.split('#', 1)
+            url = tornado.escape.url_escape(url)
+            self.redirect('/measure?url=' + url + '#' + fragment)
+        else:
+            http = tornado.httpclient.AsyncHTTPClient()
+            http.fetch(url, callback=self.async_callback(self.on_response, url))
 
     def on_response(self, url, response):
         if response.error: raise tornado.web.HTTPError(500)
